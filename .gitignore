@@ -1,3 +1,13 @@
+chunking_llma/*
+comment_categories/*
+comment_scrappting_10/*
+ollama_perks/*
+ollma_categorizer/*
+youtube_video_perks_5/*
+
+
+chunking_llma/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -32,7 +32,7 @@ def scrape_videos(channel_name, sort_by, limit):
         limit = limit,             # set limit 10 to competitors videoids change the filter too 
         sleep = 1,
         # proxies: dict = None,
-        sort_by = sort_by
+        sort_by = sort_by,
         # sort_by = "newest",                  #     Literal["newest", "oldest", "popular"]
         content_type = "videos"   #    Literal["videos", "shorts", "streams"]
         )

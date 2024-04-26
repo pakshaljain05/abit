@@ -105,16 +105,5 @@ for ind,transcript in enumerate(transcript_lists):
 end=time.time()
 print(f'Total time took {(end-start)/60}')
 
-#Expecting value: line 1 column 1 (char 0)
-
-# [11, 13, 17, 22,36, 58, 61, 62, 81, 126, 157, 159, 161, 163, 170, 176, 178, 191, 193, 199]
-
-# Unterminated string starting at: line 1 column 14 (char 13)
-
-# [23, ]
-
-# Expecting ',' delimiter: line 1 column 868 (char 867)
-
-# [26, 51, 69, 92, 167, ]
 
 # df.to_csv('the_armchair_historian_summary.csv')

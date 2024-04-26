@@ -13,6 +13,7 @@ import scrapetube
 import time
 
 
+
 # youtube_api_key = os.getenv("YOUTUBE_API_KEY")
 
 # def get_channel_id(channel_name,youtube_api_key):
@@ -138,11 +139,16 @@ def final_data(user, non_user,user_channel_name, competitors_channel_names,trans
             else:
                 competitor_df = extract_transcript_details(video_concat(competitors_channel_names),transcript)
                 # return competitor_df
-        
-        if user:        
-            user_df.to_csv(f'{path}{user_channel_name}_data.csv')
-        if non_user:
-            competitor_df.to_csv(f'{path}{user_channel_name}_competitors_data.csv')
+        if transcript:
+            if user:        
+                user_df.to_csv(f'{path}{user_channel_name}_transcripts.csv')
+            if non_user:
+                competitor_df.to_csv(f'{path}{user_channel_name}_competitors_transcripts.csv')
+        else:
+            if user:        
+                user_df.to_csv(f'{path}{user_channel_name}_data.csv')
+            if non_user:
+                competitor_df.to_csv(f'{path}{user_channel_name}_competitors_data.csv')
     except Exception as e:
         print(e)
 

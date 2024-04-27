@@ -17,16 +17,13 @@ def configure_apikey():
     print('Configuring Google API Key...')
 
 def get_prompt():
-    prompt = '''You are Professional Yotube video summarizer. Create a concise and comprehensive summary of the provided 
-                video transcription text while adhering to these guidelines:
-
-            Craft a summary that is detailed, thorough, in-depth, and complex, while maintaining clarity and conciseness.
-            Incorporate main ideas and essential information, eliminating extraneous language and focusing on critical aspects
-            of what the video is about.
-            Rely strictly on the provided text, without including external information.
-            Format the summary in paragraph form for easy understanding.
-            The summary should be under or at the most 150 words.
-            Please provide the summary of the text given here :'''
+    prompt = '''You are Professional Yotube video summarizer. Create a concise and comprehensive summary of the provided video title and video transcription text while adhering to these guidelines:
+Craft a summary that is detailed, thorough, in-depth, and complex, while maintaining clarity and conciseness.
+Incorporate main ideas and essential information, eliminating extraneous language and focusing on critical aspects of what the video is about.
+Rely strictly on the provided text, without including external information.
+Format the summary in paragraph form for easy understanding.
+The summary should be strictly under or at the most 200 words and narrate in third person point of view.
+Please provide the summary of the text given here :'''
     
     return prompt
 
@@ -75,7 +72,12 @@ def summary_generation(df):
     # tag_list=[]
     # overview=[]
     # summary_error_list=[]
-    transcript_lists=add_features(df)
+    # transcript_lists=add_features(df)
+    df['character_count']=df['transcripts'].str.len()
+    df['word_count']=df['transcripts'].str.split().apply(len)
+    transcript_lists=df['transcripts'].to_list()
+    video_title_lists=df['video_title'].to_list()
+
     prompt = get_prompt()
     model = load_model()
     print(f'Summarizing {len(transcript_lists)} videos...')
@@ -84,7 +86,9 @@ def summary_generation(df):
         print(ind)
         try:
             if transcript!='No Transcript':
-                response=model.generate_content(prompt + transcript)
+                video_info = f"\n Video Title : {video_title_lists[ind]} \n Video Transcription : {transcript}"
+
+                response=model.generate_content(prompt + video_info)
                 response=response.text
                 # print('Content summarized')
                 # response=json.loads(response.replace('\n',''))
@@ -103,8 +107,9 @@ def summary_generation(df):
 
         except Exception as e:
             print(e)
-            print(f'Error at video id : {df.iloc[ind,1]}')
-            print(f'Error at : {df.iloc[ind,2]}')
+            print(f"Error for {df.loc[ind,'channel_name']}")
+            print(f"Error at video id : {df.loc[ind,'video_id']}")  ### video id
+            print(f"Error at : {df.loc[ind,'video_title']}")  ## video title
 
             # summary_error_list.append(df.iloc[ind,1])
             summary_list.append('None')
@@ -134,7 +139,7 @@ def main(user , non_user):
     configure_apikey()
 
     if user:
-        user_df = pd.read_csv(f'{transcript_path}{user_channel_name}_transcripts.csv',index_col=False)
+        user_df = pd.read_csv(f"{transcript_path}{user_channel_name}_transcripts.csv",index_col=False)
         print('Extracting insights from competitors video...')
 
         user_summary_df=summary_generation(user_df,user,non_user)
@@ -143,7 +148,7 @@ def main(user , non_user):
 
 
     if non_user:
-        competitors_df = pd.read_csv(f'{transcript_path}{user_channel_name}_competitors_transcritpts.csv',index_col=False)
+        competitors_df = pd.read_csv(f"{transcript_path}{user_channel_name}_competitors_transcripts.csv",index_col=False)
         print('Extracting insights from competitors video...')
 
         non_user_summary_df=summary_generation(competitors_df)

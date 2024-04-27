@@ -60,6 +60,7 @@ def scrape_videos(channel_name):
 
     
     video_df=pd.DataFrame(data=x,columns=y)
+    video_df['channel_name']=channel_name
     # print(video_df)
     return video_df
 
@@ -82,7 +83,7 @@ def video_preprocessing(df):
 
 def video_concat(competitors_channel_names):
     print(f"Filtering all the competitors video ...")
-    concat_df=pd.DataFrame(columns=['video_id', 'video_title', 'publish_time', 'total_views', 'view_count'])
+    concat_df=pd.DataFrame(columns=['video_id', 'video_title', 'publish_time', 'total_views', 'view_count','channel_name'])
     for name in competitors_channel_names:
         temp_df=video_preprocessing(scrape_videos(name))
         temp_df=video_filter(temp_df)
@@ -169,15 +170,18 @@ def main(user , non_user , transcript=False):
     competitors_channel_names = [name.strip() for name in input_list]
     return final_data(user, non_user, user_channel_name, competitors_channel_names, transcript,path)
 
-main(False,True,True)
 
+#############################################################################################
 
+main(user=False,non_user=True,transcript=True)
+
+#############################################################################################
 ##### Improvements
 
 '''
 Condition for transcription needed or not for user and competitors separately  
 Testing to get all the video data from youtube, currently 7-14% missing videos
-
+Use additional audio to text model like whisper for edge cases 
 
 '''
 

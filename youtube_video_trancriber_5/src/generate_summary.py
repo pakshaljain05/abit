@@ -114,7 +114,7 @@ def summary_generation(df):
     df['summary'] = summary_list
     # df['tags'] = tag_list
     # df['overview'] = overview
-    df=df.iloc[:,1:]
+    df=df.iloc[:,1:]  # change to using column names 
     df=df.drop('transcripts',axis=1)
     print(df)
     return df
@@ -148,9 +148,9 @@ def main(user , non_user):
         non_user_summary_df=summary_generation(competitors_df)
         non_user_summary_df.to_csv(f"{summary_path}{user_channel_name}_competitors_summary.csv")
 
-
-    
-    
+#############################################################################################
 
 main(user=False,non_user= True)
-# df.to_csv('the_armchair_historian_summary.csv')
+
+
+#############################################################################################

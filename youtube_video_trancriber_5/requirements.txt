@@ -6,3 +6,7 @@ pathlib
 google-api-python-client
 scrapetube
 scikit-learn
+openai
+tiktoken
+matplotlib
+plotly

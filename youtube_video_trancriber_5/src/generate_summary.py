@@ -4,7 +4,6 @@ load_dotenv() ##load all the nevironment variables
 import os
 import google.generativeai as genai
 import time,json
-from youtube_transcript_api import YouTubeTranscriptApi
 from googleapiclient.discovery import build
 import pandas as pd
 # from youtube_api import YoutubeDataApi
@@ -71,7 +70,7 @@ def summary_generation(df):
     summary_list=[]
     # tag_list=[]
     # overview=[]
-    # summary_error_list=[]
+    summary_error_list=[]
     # transcript_lists=add_features(df)
     df['character_count']=df['transcripts'].str.len()
     df['word_count']=df['transcripts'].str.split().apply(len)
@@ -81,7 +80,7 @@ def summary_generation(df):
     prompt = get_prompt()
     model = load_model()
     print(f'Summarizing {len(transcript_lists)} videos...')
-    # start=time.time()
+    start=time.time()
     for ind,transcript in enumerate(transcript_lists):
         print(ind)
         try:
@@ -107,15 +106,19 @@ def summary_generation(df):
 
         except Exception as e:
             print(e)
-            print(f"Error for {df.loc[ind,'channel_name']}")
-            print(f"Error at video id : {df.loc[ind,'video_id']}")  ### video id
-            print(f"Error at : {df.loc[ind,'video_title']}")  ## video title
+            # print(f"Error for {df.loc[ind,'channel_name']}")
+            print(f"Error at video id : {df.iloc[ind,1]}")  ### video id
+            print(f"Error at : {df.iloc[ind,2]}")  ## video title
 
-            # summary_error_list.append(df.iloc[ind,1])
+            summary_error_list.append(df.iloc[ind,1])
             summary_list.append('None')
+
             # tag_list.append('None')
             # overview.append('None')
             # response_json.append('None')
+    end=time.time()
+    print(f'Total time took {(end-start)/60} minutes.')
+    print(f'Summaries skipped for {len(summary_error_list)} videos')
 
     df['summary'] = summary_list
     # df['tags'] = tag_list
@@ -142,7 +145,7 @@ def main(user , non_user):
         user_df = pd.read_csv(f"{transcript_path}{user_channel_name}_transcripts.csv",index_col=False)
         print('Extracting insights from competitors video...')
 
-        user_summary_df=summary_generation(user_df,user,non_user)
+        user_summary_df=summary_generation(user_df)
         user_summary_df.to_csv(f"{summary_path}{user_channel_name}_summary.csv")
 
 

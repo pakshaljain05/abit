@@ -113,4 +113,26 @@ def main():
 
     video_recommendation(path, video_count, model_name, user_channel_name)
 
-    # if user:
+main()
+    
+'''
+issues:
+currently taking minimum scores across all combinations user x competitors 
+fixes:
+take average of all user videos scores for each competitors videos and then take first 5 minimum scores   
+
+
+config
+
+all the data paths
+env file 
+
+
+
+model paramters
+
+video_count
+model_name
+
+
+'''

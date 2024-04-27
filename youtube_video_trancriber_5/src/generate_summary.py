@@ -25,7 +25,8 @@ def get_prompt():
             of what the video is about.
             Rely strictly on the provided text, without including external information.
             Format the summary in paragraph form for easy understanding.
-            Please provide the summary in under 200 words preferably 150 words of the text given here:'''
+            The summary should be under or at the most 150 words.
+            Please provide the summary of the text given here :'''
     
     return prompt
 
@@ -150,7 +151,7 @@ def main(user , non_user):
 
 #############################################################################################
 
-main(user=False,non_user= True)
+main(user=True,non_user= True)
 
 
 #############################################################################################

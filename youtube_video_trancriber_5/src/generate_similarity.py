@@ -110,7 +110,7 @@ def video_recommendation(path, video_count,model_name,user_channel_name):
     indices = lowest_average_similarity(cosine_similarities,video_count)
     end=time.time()
     print(f"Total time to get the suggested video ideas : {((end-start)/60)} minutes")
-    results_df=competitors_df.loc[indices,:][['channel_name','video_title','summary']]
+    results_df=competitors_df.loc[indices,:][['channel_name','video_title','summary']] ## add views, publish time, 
 
     results_df.to_csv(f"{path['interim_path']}{user_channel_name}_video_recommended.csv") #####################
     print(results_df)

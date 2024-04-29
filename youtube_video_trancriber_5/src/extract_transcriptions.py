@@ -213,6 +213,6 @@ Testing to get all the video data from youtube, currently 7-14% missing videos
 Use additional audio to text model like whisper for edge cases 
 function to check after getting transcription is there 10 videos from each competitor
 if transcription true check if we already have video data for that user or its competitor
-'''
 
 
+InterscareSleep, LetsReadPodcast, BeingScared, MortisMedia, '''

@@ -82,7 +82,7 @@ def summary_generation(df):
     print(f'Summarizing {len(transcript_lists)} videos...')
     start=time.time()
     for ind,transcript in enumerate(transcript_lists):
-        print(ind)
+        # print(ind)
         try:
             if transcript!='No Transcript':
                 video_info = f"\n Video Title : {video_title_lists[ind]} \n Video Transcription : {transcript}"

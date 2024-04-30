@@ -34,40 +34,41 @@ prompt = """Act like you are a professional Content Strategeist/Analyst. Given a
             the video is about under 50-100 words. Extract key insights and suggest some creative actionable content ideas for creators
             with similar niche. This is the provided summary : """
 
-prompt = """
 
-1. Trend Analysis:
-Based on the transcriptions of videos, identify emerging trends or popular topics in the industry. 
-Analyze the recurring keywords and themes to uncover insights into current trends. 
-Provide recommendations on content topics that are gaining traction and may resonate well with their audience.
+# prompt = """
 
-3. Audience Engagement Analysis Prompt:
-Extract insights from the transcriptions of videos regarding audience engagement strategies. 
-Identify patterns associated with high audience engagement, such as emotional language, interactive elements, or compelling storytelling techniques. 
-Provide recommendations for enhancing audience engagement based on these insights.
+# 1. Trend Analysis:
+# Based on the transcriptions of videos, identify emerging trends or popular topics in the industry. 
+# Analyze the recurring keywords and themes to uncover insights into current trends. 
+# Provide recommendations on content topics that are gaining traction and may resonate well with their audience.
 
-4. Content Format Experimentation Prompt:
-Explore the transcriptions of videos to identify unique content formats or narrative structures. 
-Analyze the storytelling techniques, presentation styles, and content formats that set videos apart. 
-Suggest experimental content formats or storytelling approaches that someone with similar niche can adopt to differentiate their videos and captivate their audience.
+# 3. Audience Engagement Analysis Prompt:
+# Extract insights from the transcriptions of videos regarding audience engagement strategies. 
+# Identify patterns associated with high audience engagement, such as emotional language, interactive elements, or compelling storytelling techniques. 
+# Provide recommendations for enhancing audience engagement based on these insights.
 
-5. Keyword and Tag Analysis Prompt:
-Extract keywords and tags from the transcriptions of videos to understand the topics and concepts they focus on. 
-Analyze the language used in the transcriptions to identify relevant keywords and phrases. 
-Provide recommendations for optimizing video metadata, including titles, descriptions, and tags, to improve search visibility and discoverability.
+# 4. Content Format Experimentation Prompt:
+# Explore the transcriptions of videos to identify unique content formats or narrative structures. 
+# Analyze the storytelling techniques, presentation styles, and content formats that set videos apart. 
+# Suggest experimental content formats or storytelling approaches that someone with similar niche can adopt to differentiate their videos and captivate their audience.
 
-6. Audience Feedback Analysis Prompt:
-Analyze audience sentiments expressed in the transcriptions of videos using sentiment analysis techniques. 
-Identify common feedback themes, positive/negative sentiments, and audience reactions to content. 
-Provide insights for genrating content ideas on audience preferences, sentiment trends, and potential pain points. 
+# 5. Keyword and Tag Analysis Prompt:
+# Extract keywords and tags from the transcriptions of videos to understand the topics and concepts they focus on. 
+# Analyze the language used in the transcriptions to identify relevant keywords and phrases. 
+# Provide recommendations for optimizing video metadata, including titles, descriptions, and tags, to improve search visibility and discoverability.
 
-Use the above insights to inform content strategy decisions and enhance audience satisfaction from provided video title and content transcription of popular videos.
-Rely strictly on the provided text, without including external information.
-You can skip any part if there is not enough evidence to claim from the provided video title and video transcription :
+# 6. Audience Feedback Analysis Prompt:
+# Analyze audience sentiments expressed in the transcriptions of videos using sentiment analysis techniques. 
+# Identify common feedback themes, positive/negative sentiments, and audience reactions to content. 
+# Provide insights for genrating content ideas on audience preferences, sentiment trends, and potential pain points. 
 
-"""
+# Use the above insights to inform content strategy decisions and enhance audience satisfaction from provided video title and content transcription of popular videos.
+# Rely strictly on the provided text, without including external information.
+# You can skip any part if there is not enough evidence to claim from the provided video title and video transcription :
 
-st.title("YouTube Channel Video Summarizer")
+# """
+
+st.title("YouTube Video Recommendation")
 user_channel_name = st.text_input("Enter your youtube channel name : ")
 competitors_channel_names = st.text_input("Enter competitors channel names separated by commas : ")
 input_list = competitors_channel_names.split(',')
@@ -81,9 +82,9 @@ if st.button("Get Summaries"):
             video_summary=df['summary'].to_list()
             channel_names=df['channel_name'].to_list()
 
-            # total_views=df['total_views'].to_list()
-            # published_date=df['published_time'].to_list()
-            st.write(f"Top recommended videos are given below")
+            total_views=df['total_views'].to_list()
+            published_date=df['publish_time'].to_list()
+            st.write(f"Top recommended videos are given below :")
             # responses=[]
             # for i in range(len(video_summary[:1])):
             #     response = generate_gemini_content(video_summary[i], prompt)
@@ -93,10 +94,10 @@ if st.button("Get Summaries"):
             # response1 = generate_gemini_content(video_summary[0], prompt)
             # st.write(f"{video_titles[0]} from {channel_names[0]}")
             # st.write(response1)
-            for i in range(len(video_titles[:1])):
+            for i in range(len(video_titles)):
                 response = generate_gemini_content(video_summary[i], prompt)
-                # st.write(f"{video_titles[i]} from {channel_names[i]} published {published_date[i]} have about {total_views[i]}")
-                st.write(f"{video_titles[i]} from {channel_names[i]}")
+                st.write(f"{video_titles[i]} from {channel_names[i]} published {published_date[i]} have about {total_views[i]}")
+                # st.write(f"{video_titles[i]} from {channel_names[i]}")
                 st.write(response)
                 # st.write("Video Overview :")
                 # st.write(response)
@@ -155,3 +156,9 @@ if st.button("Get Summaries"):
 #             st.write(f"Error: {e}")
 #     else:
 #         st.write("Please enter a valid YouTube Channel ID.")
+
+
+'''
+check the prompts for restricting anything othr than the video details example sponsored content
+
+'''

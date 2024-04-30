@@ -74,6 +74,7 @@ def scrape_videos(channel_name):
                 total_views = 'PREMIUM'
             x.append([video_id,video_title,publish_time,total_views])
     except Exception as e:
+        print(e)
         print(f'User not found for channel name {channel_name}')  ### change statements 
 
     
@@ -105,10 +106,13 @@ def video_concat(competitors_channel_names):
     # print(f"Filtering all the competitors video ...")
     concat_df=pd.DataFrame(columns=['video_id', 'video_title', 'publish_time', 'total_views', 'view_count','channel_name'])
     for name in competitors_channel_names:
-        temp_df=video_preprocessing(scrape_videos(name))
-        temp_df=video_filter(temp_df)
-        # print(f'Total videos for {name} : ',len(temp))
-        concat_df=pd.concat([concat_df,temp_df])
+        try :
+            temp_df=video_preprocessing(scrape_videos(name))
+            temp_df=video_filter(temp_df)
+            # print(f'Total videos for {name} : ',len(temp))
+            concat_df=pd.concat([concat_df,temp_df])
+        except Exception as e:
+            return concat_df
         # print(len(concat_df))
     return concat_df
 
@@ -215,4 +219,6 @@ function to check after getting transcription is there 10 videos from each compe
 if transcription true check if we already have video data for that user or its competitor
 
 
-InterscareSleep, LetsReadPodcast, BeingScared, MortisMedia, '''
+InterscareSleep, LetsReadPodcast, BeingScared, MortisMedia, 
+
+foxhollowgames,    GMTK, GamesOverCoffeeConsulting, sora_sakurai_en'''

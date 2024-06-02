@@ -61,7 +61,6 @@ prompt = """Act like you are a professional Content Strategeist/Analyst. Given a
 # Analyze audience sentiments expressed in the transcriptions of videos using sentiment analysis techniques. 
 # Identify common feedback themes, positive/negative sentiments, and audience reactions to content. 
 # Provide insights for genrating content ideas on audience preferences, sentiment trends, and potential pain points. 
-
 # Use the above insights to inform content strategy decisions and enhance audience satisfaction from provided video title and content transcription of popular videos.
 # Rely strictly on the provided text, without including external information.
 # You can skip any part if there is not enough evidence to claim from the provided video title and video transcription :
